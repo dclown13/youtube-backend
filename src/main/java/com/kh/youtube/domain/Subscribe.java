@@ -15,5 +15,5 @@ public class Subscribe {
     private Date subsDate;
 
     private Member member;
-    private Channel channelCode;
+    private Channel channel;
 }

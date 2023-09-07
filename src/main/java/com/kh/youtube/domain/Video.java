@@ -18,8 +18,7 @@ public class Video {
     private String videoUrl;
     private String videoPhoto;
 
-    private Category categoryCode;
-    private Channel channelCode;
-    private Member memberId;
+    private Category category;
+    private Channel channel;
     private Member member;
 }

@@ -13,8 +13,8 @@ public class CommentLike {
 
     private int commLikeCode;
     private Date commLikeDate;
-    private int commentCode;
-    private String memberId;
+
+    private VideoComment comment;
     private Member member;
 
 }
