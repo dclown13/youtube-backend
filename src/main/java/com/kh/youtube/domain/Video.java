@@ -24,7 +24,7 @@ public class Video {
     @Column(name = "video_title")
     private String videoTitle;
 
-    @Column(name = "video_dese")
+    @Column(name = "video_desc")
     private String videoDesc;
 
     @Column(name = "video_date")
