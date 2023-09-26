@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberDAO extends JpaRepository<Member, String> {
 
-
+    Member findByIdAndPassword(String id, String password);
 
 }
