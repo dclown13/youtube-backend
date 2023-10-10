@@ -17,8 +17,8 @@ public class CommentLike {
 
     @Id
     @Column(name = "comm_like_code")
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "commLikeSequence")
-    @SequenceGenerator(name = "commLikeSequence", sequenceName = "SEQ_COMMENT_LIKE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator="commLikeSequence")
+    @SequenceGenerator(name="commLikeSequence", sequenceName = "SEQ_COMMENT_LIKE", allocationSize = 1)
     private int commLikeCode;
 
     @Column(name = "comm_like_date")
@@ -31,5 +31,4 @@ public class CommentLike {
     @ManyToOne
     @JoinColumn(name = "id")
     private Member member;
-
 }

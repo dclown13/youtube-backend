@@ -24,22 +24,19 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/*")
-@CrossOrigin(origins = {"*"}, maxAge = 6000)
-@Log4j2
 public class ChannelController {
 
-    @Value("${spring.servlet.multipart.location}")
+    @Value("${youtube.upload.path}")
     private String uploadPath;
 
     @Autowired
     private ChannelService channel;
 
     @Autowired
-    private VideoService videoService;
+    private VideoService video;
 
     @Autowired
     private SubscribeService subscribe;
-
 
     // 채널 조회 : GET - http://localhost:8080/api/channel/1
     @GetMapping("/channel/{id}")
@@ -48,19 +45,15 @@ public class ChannelController {
     }
 
     // 채널에 있는 영상 조회 : GET - http://localhost:8080/api/channel/1/video
-    @GetMapping("/channel/1/{id}")
+    @GetMapping("/channel/{id}/video")
     public ResponseEntity<List<Video>> channelVideoList(@PathVariable int id) {
-        // SELECT * FROM video WHERE channel_code = ?
-        return ResponseEntity.status(HttpStatus.OK).body(videoService.findByChannelCode(id));
+        return ResponseEntity.status(HttpStatus.OK).body(video.findByChannelCode(id));
     }
-
     // 채널 추가 : POST - http://localhost:8080/api/channel
     @PostMapping("/channel")
-    public ResponseEntity<Channel> createChannel(String name, String desc, MultipartFile photo) {
-
-        // 수정 해주세요~
-        String ortginalPhoto = photo.getOriginalFilename();
-        String filePhoto = ortginalPhoto.substring(ortginalPhoto.lastIndexOf("\\")+1);
+    public ResponseEntity<Channel> createChannel(MultipartFile photo, String name, String desc) {
+        String originalPhoto = photo.getOriginalFilename();
+        String filePhoto = originalPhoto.substring(originalPhoto.lastIndexOf("\\")+1);
         String uuid = UUID.randomUUID().toString();
         String savePhoto = uploadPath + File.separator + uuid + "_" + filePhoto;
         Path pathPhoto = Paths.get(savePhoto);
@@ -71,6 +64,7 @@ public class ChannelController {
             throw new RuntimeException(e);
         }
 
+        // 파일 업로드가 끝났으니 경로 (savePhoto), name, desc, memberId (id)
         Channel vo = new Channel();
         vo.setChannelPhoto(uuid + "_" + filePhoto);
         vo.setChannelName(name);
@@ -79,41 +73,37 @@ public class ChannelController {
         member.setId("user1");
         vo.setMember(member);
 
+        //return ResponseEntity.status(HttpStatus.OK).build();
         return ResponseEntity.status(HttpStatus.OK).body(channel.create(vo));
     }
-
     // 채널 수정 : PUT - http://localhost:8080/api/channel
-
     @PutMapping("/channel")
-    public ResponseEntity<Channel> update(@RequestBody Channel vo) {
+    public ResponseEntity<Channel> updateChannel(@RequestBody Channel vo) {
         return ResponseEntity.status(HttpStatus.OK).body(channel.update(vo));
     }
 
-    // 채널 삭제 : DELETE - http://localhost:8080/api/channel
-
+    // 채널 삭제 : DELETE - http://localhost:8080/api/channel/1
     @DeleteMapping("/channel/{id}")
     public ResponseEntity<Channel> deleteChannel(@PathVariable int id) {
         return ResponseEntity.status(HttpStatus.OK).body(channel.delete(id));
     }
 
     // 내가 구독한 채널 조회 : GET - http://localhost:8080/api/subscribe/user1
-
-    @GetMapping("/subscribe/{id}")
+    @GetMapping("/subscribe/{user}")
     public ResponseEntity<List<Subscribe>> subscribeList(@PathVariable String user) {
         return ResponseEntity.status(HttpStatus.OK).body(subscribe.findByMemberId(user));
     }
 
     // 채널 구독 : POST - http://localhost:8080/api/subscribe
-    @PostMapping("/subcribe")
+    @PostMapping("/subscribe")
     public ResponseEntity<Subscribe> createSubscribe(@RequestBody Subscribe vo) {
         return ResponseEntity.status(HttpStatus.OK).body(subscribe.create(vo));
     }
 
     // 채널 구독 취소 : DELETE - http://localhost:8080/api/subscribe/1
     @DeleteMapping("/subscribe/{id}")
-    public ResponseEntity<Subscribe> delete(@PathVariable int id) {
+    public ResponseEntity<Subscribe> deleteSubscribe(@PathVariable int id) {
         return ResponseEntity.status(HttpStatus.OK).body(subscribe.delete(id));
     }
-
 
 }

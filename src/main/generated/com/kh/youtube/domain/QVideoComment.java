@@ -57,4 +57,3 @@ public class QVideoComment extends EntityPathBase<VideoComment> {
     }
 
 }
-

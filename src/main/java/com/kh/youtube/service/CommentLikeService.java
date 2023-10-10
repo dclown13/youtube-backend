@@ -12,36 +12,32 @@ import java.util.List;
 public class CommentLikeService {
 
     @Autowired
-    private CommentLikeDAO commentLikeDAO;
-
-    @Autowired
-    private MemberDAO memberDAO;
+    private CommentLikeDAO dao;
 
     public List<CommentLike> showAll() {
-        return commentLikeDAO.findAll();
+        return dao.findAll();
     }
 
-    public CommentLike show(int id){
-        return commentLikeDAO.findById(id).orElse(null);
+    public CommentLike show(int id) {
+        return dao.findById(id).orElse(null);
     }
 
     public CommentLike create(CommentLike vo) {
-        return commentLikeDAO.save(vo);
+        return dao.save(vo);
     }
 
     public CommentLike update(CommentLike vo) {
-        CommentLike target = commentLikeDAO.findById(vo.getCommLikeCode()).orElse(null);
-        if(target != null) {
-            return commentLikeDAO.save(vo);
+        CommentLike target = dao.findById(vo.getCommLikeCode()).orElse(null);
+        if(target!=null) {
+            return dao.save(vo);
         }
         return null;
     }
 
     public CommentLike delete(int id) {
-        CommentLike target = commentLikeDAO.findById(id).orElse(null);
-        commentLikeDAO.delete(target);
+        CommentLike target = dao.findById(id).orElse(null);
+        dao.delete(target);
         return target;
     }
-
 
 }

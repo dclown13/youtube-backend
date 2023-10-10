@@ -10,43 +10,38 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
 public class SubscribeService {
-
     @Autowired
-    private SubscribeDAO subscribeDAO;
-
-    @Autowired
-    private MemberDAO memberDAO;
+    private SubscribeDAO dao;
 
     public List<Subscribe> showAll() {
-        return subscribeDAO.findAll();
+        return dao.findAll();
     }
 
-    public Subscribe show(int id){
-        return subscribeDAO.findById(id).orElse(null);
+    public Subscribe show(int id) {
+        return dao.findById(id).orElse(null);
     }
 
     public Subscribe create(Subscribe vo) {
-        return subscribeDAO.save(vo);
+        return dao.save(vo);
     }
 
     public Subscribe update(Subscribe vo) {
-        Subscribe target = subscribeDAO.findById(vo.getSubsCode()).orElse(null);
-        if(target != null) {
-            return subscribeDAO.save(vo);
+        Subscribe target = dao.findById(vo.getSubsCode()).orElse(null);
+        if(target!=null) {
+            return dao.save(vo);
         }
         return null;
     }
 
     public Subscribe delete(int id) {
-        Subscribe target = subscribeDAO.findById(id).orElse(null);
-        subscribeDAO.delete(target);
+        Subscribe target = dao.findById(id).orElse(null);
+        dao.delete(target);
         return target;
     }
 
     public List<Subscribe> findByMemberId(String id) {
-        return subscribeDAO.findByMemberId(id);
+        return dao.findByMemberId(id);
     }
 }

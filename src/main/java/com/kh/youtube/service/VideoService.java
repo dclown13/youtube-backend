@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class VideoService {
-    
+
     @Autowired
     private VideoDAO dao;
 
@@ -22,7 +22,7 @@ public class VideoService {
         return dao.findAll(builder, pageable);
     }
 
-    public Video show(int id){
+    public Video show(int id) {
         return dao.findById(id).orElse(null);
     }
 
@@ -32,7 +32,7 @@ public class VideoService {
 
     public Video update(Video vo) {
         Video target = dao.findById(vo.getVideoCode()).orElse(null);
-        if(target != null) {
+        if(target!=null) {
             return dao.save(vo);
         }
         return null;

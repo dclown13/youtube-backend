@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class VideoLikeService {
-    
     @Autowired
     private VideoLikeDAO dao;
 
@@ -18,7 +17,7 @@ public class VideoLikeService {
         return dao.findAll();
     }
 
-    public VideoLike show(int id){
+    public VideoLike show(int id) {
         return dao.findById(id).orElse(null);
     }
 
@@ -28,7 +27,7 @@ public class VideoLikeService {
 
     public VideoLike update(VideoLike vo) {
         VideoLike target = dao.findById(vo.getVLikeCode()).orElse(null);
-        if(target != null) {
+        if(target!=null) {
             return dao.save(vo);
         }
         return null;
@@ -39,5 +38,4 @@ public class VideoLikeService {
         dao.delete(target);
         return target;
     }
-    
 }

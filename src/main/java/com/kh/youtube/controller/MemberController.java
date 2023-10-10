@@ -34,12 +34,12 @@ public class MemberController {
     public ResponseEntity register(@RequestBody MemberDTO dto) {
         // 비밀번호 -> 암호화 처리 + 저장할 유저 만들기
         Member member = Member.builder()
-                                .id(dto.getId())
-                                .password(passwordEncoder.encode(dto.getPassword()))
-                                .name(dto.getName())
-                                .build();
+                .id(dto.getId())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .name(dto.getName())
+                .build();
 
-        // 서비스를 이용해 레포지터리에 유저 저장
+        // 서비스를 이용해 리포지터리에 유저 저장
         Member registerMember = service.create(member);
         MemberDTO responseDTO = dto.builder()
                 .id(registerMember.getId())
@@ -50,21 +50,20 @@ public class MemberController {
 
     // 로그인 -> token
     @PostMapping("/signin")
-    public  ResponseEntity authenticate(@RequestBody MemberDTO dto) {
+    public ResponseEntity authenticate(@RequestBody MemberDTO dto) {
         Member member = service.getByCredentials(dto.getId(), dto.getPassword(), passwordEncoder);
         if(member!=null) { // -> 토큰 생성
             String token = tokenProvider.create(member);
             MemberDTO responseDTO = MemberDTO.builder()
-                                                .id(member.getId())
-                                                .name(member.getName())
-                                                .token(token)
-                                                .build();
+                    .id(member.getId())
+                    .name(member.getName())
+                    .token(token)
+                    .build();
             return ResponseEntity.ok().body(responseDTO);
         } else {
             return ResponseEntity.badRequest().build();
         }
     }
-
 
 //    @Autowired
 //    private MemberService memberService;

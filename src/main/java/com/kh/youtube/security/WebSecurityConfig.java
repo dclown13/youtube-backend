@@ -18,21 +18,21 @@ public class WebSecurityConfig {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(); // http 시큐리티
+        http.authorizeHttpRequests();
 
         http.cors()
                 .and()
                 .csrf().disable()
                 .httpBasic().disable()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
-                .anyRequest().authenticated();
-        
+                .anyRequest().permitAll();
+
         // JWT 토큰 생성부터 필터처리까지 전부 세팅
         // JWT 필터 등록
         http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);

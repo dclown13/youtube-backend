@@ -18,10 +18,9 @@ public class MemberService {
 
     public List<Member> showAll() {
         return dao.findAll(); // SELECT * FROM MEMBER
-
     }
 
-    public Member show(String id){
+    public Member show(String id) {
         return dao.findById(id).orElse(null); // SELECT * FROM MEMBER WHERE id=?
     }
 
@@ -36,8 +35,8 @@ public class MemberService {
     // WHERE ID=?
     public Member update(Member member) {
         Member target = dao.findById(member.getId()).orElse(null);
-        if(target!=null){
-            return dao.save(target);
+        if(target!=null) {
+            return dao.save(member);
         }
         return null;
     }
@@ -48,7 +47,6 @@ public class MemberService {
         dao.delete(target);
         return target;
     }
-
 
     public Member getByCredentials(String id, String password, PasswordEncoder encoder) {
         Member member = dao.findById(id).orElse(null);

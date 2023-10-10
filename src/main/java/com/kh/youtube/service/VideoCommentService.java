@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class VideoCommentService {
-
     @Autowired
     private VideoCommentDAO dao;
 
@@ -17,7 +16,7 @@ public class VideoCommentService {
         return dao.findAll();
     }
 
-    public VideoComment show(int id){
+    public VideoComment show(int id) {
         return dao.findById(id).orElse(null);
     }
 
@@ -27,7 +26,7 @@ public class VideoCommentService {
 
     public VideoComment update(VideoComment vo) {
         VideoComment target = dao.findById(vo.getCommentCode()).orElse(null);
-        if(target != null) {
+        if(target!=null) {
             return dao.save(vo);
         }
         return null;

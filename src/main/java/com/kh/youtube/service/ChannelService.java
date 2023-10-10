@@ -18,7 +18,6 @@ public class ChannelService {
     @Autowired
     private MemberDAO memberDAO;
 
-
     public List<Channel> showAll() {
         return channelDAO.findAll();
     }
@@ -42,14 +41,13 @@ public class ChannelService {
         return null;
     }
 
-
     public Channel delete(int id) {
         Channel target = channelDAO.findById(id).orElse(null);
         channelDAO.delete(target);
         return target;
     }
 
-    // 특정 맴버의 모든 채널 조회
+    // 특정 멤버의 모든 채널 조회
     public List<Channel> showMember(String id) {
         return channelDAO.findByMemberId(id);
     }

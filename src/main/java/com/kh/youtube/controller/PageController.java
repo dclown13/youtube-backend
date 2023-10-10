@@ -18,4 +18,5 @@ public class PageController {
         model.addAttribute("category", category.showAll());
         return "index";
     }
+
 }
