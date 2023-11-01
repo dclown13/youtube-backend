@@ -30,9 +30,9 @@ public class TokenProvider {
 
     public String validateAndGetUserId(String token) { // 토큰을 디코딩, 파싱 및 위조여부 확인
         Claims claims = Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
+                            .setSigningKey(SECRET_KEY)
+                            .parseClaimsJws(token)
+                            .getBody();
         return claims.getSubject(); // id를 반환
     }
 

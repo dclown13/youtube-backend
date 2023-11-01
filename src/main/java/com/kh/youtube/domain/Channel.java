@@ -1,5 +1,6 @@
 package com.kh.youtube.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,12 +34,8 @@ public class Channel {
     @Column(name="channel_date")
     private Date channelDate;
 
-    //@ManyToOne // Channel 엔티티와 Member 엔티티를 다대일 관계로 설정
-    //@JoinColumn(name = "member_id") // 외래키 생성 or Member 엔티티의 기본키와 매핑
-
-
+    @JsonIgnore
     @ManyToOne // Channel 엔티티와 Member 엔티티를 다대일 관계로 설정
     @JoinColumn(name="id")
     private Member member;
 }
-

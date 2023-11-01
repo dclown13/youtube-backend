@@ -1,7 +1,8 @@
 package com.kh.youtube.service;
 
+import com.kh.youtube.domain.Video;
 import com.kh.youtube.domain.VideoLike;
-import com.kh.youtube.domain.VideoLike;
+import com.kh.youtube.repo.VideoDAO;
 import com.kh.youtube.repo.VideoLikeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,9 @@
 package com.kh.youtube.service;
 
+import com.kh.youtube.domain.CommentLike;
 import com.kh.youtube.domain.Subscribe;
-import com.kh.youtube.domain.Subscribe;
-import com.kh.youtube.repo.MemberDAO;
+import com.kh.youtube.repo.CommentLikeDAO;
 import com.kh.youtube.repo.SubscribeDAO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

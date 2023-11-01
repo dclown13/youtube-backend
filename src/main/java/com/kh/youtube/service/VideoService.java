@@ -1,6 +1,8 @@
 package com.kh.youtube.service;
 
 import com.kh.youtube.domain.Video;
+import com.kh.youtube.domain.VideoComment;
+import com.kh.youtube.repo.VideoCommentDAO;
 import com.kh.youtube.repo.VideoDAO;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
